@@ -4,13 +4,12 @@ import { Observable } from 'rxjs';
 import { Film } from '../models/film';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FilmService {
+  private _baseUrl = 'http://localhost:3000';
 
-  private _baseUrl = "http://localhost:3000";
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getFilms(): Observable<Film[]> {
     return this.http.get<Film[]>(`${this._baseUrl}/films`);

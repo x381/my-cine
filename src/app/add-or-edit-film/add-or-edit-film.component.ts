@@ -20,19 +20,23 @@ export class AddOrEditFilmComponent implements OnInit {
   ngOnInit(): void {}
 
   addFilm() {
-    this.filmService.addFilm({
-      name: this.filmForm.controls.name.value,
-      synopsis: this.filmForm.controls.synopsis.value,
-      note: this.filmForm.controls.note.value,
-    }).subscribe();
+    this.filmService
+      .addFilm({
+        name: this.filmForm.controls.name.value,
+        synopsis: this.filmForm.controls.synopsis.value,
+        note: this.filmForm.controls.note.value,
+      })
+      .subscribe();
     this.filmForm.reset();
   }
 
   editFilm(id: number) {
-    this.filmService.editFilm(id, {
-      name: this.filmForm.controls.name.value,
-      synopsis: this.filmForm.controls.synopsis.value,
-      note: this.filmForm.controls.note.value
-    }).subscribe();
+    this.filmService
+      .editFilm(id, {
+        name: this.filmForm.controls.name.value,
+        synopsis: this.filmForm.controls.synopsis.value,
+        note: this.filmForm.controls.note.value,
+      })
+      .subscribe();
   }
 }

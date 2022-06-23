@@ -9,9 +9,14 @@ import { FilmDetailsComponent } from './film-details/film-details.component';
 import { MyFilmsComponent } from './my-films/my-films.component';
 
 @NgModule({
-  declarations: [AppComponent, AddOrEditFilmComponent, FilmDetailsComponent, MyFilmsComponent],
+  declarations: [
+    AppComponent,
+    AddOrEditFilmComponent,
+    FilmDetailsComponent,
+    MyFilmsComponent,
+  ],
   imports: [BrowserModule, ReactiveFormsModule, HttpClientModule],
-  providers: [],  
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
