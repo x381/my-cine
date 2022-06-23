@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AddOrEditFilmComponent } from './add-or-edit-film/add-or-edit-film.component';
@@ -9,8 +10,8 @@ import { MyFilmsComponent } from './my-films/my-films.component';
 
 @NgModule({
   declarations: [AppComponent, AddOrEditFilmComponent, FilmDetailsComponent, MyFilmsComponent],
-  imports: [BrowserModule, ReactiveFormsModule],
-  providers: [],
+  imports: [BrowserModule, ReactiveFormsModule, HttpClientModule],
+  providers: [],  
   bootstrap: [AppComponent],
 })
 export class AppModule {}

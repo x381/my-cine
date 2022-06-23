@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FilmService } from '../@shared/services/film.service';
 
 @Component({
   selector: 'app-add-or-edit-film',
@@ -14,16 +15,24 @@ export class AddOrEditFilmComponent implements OnInit {
   });
   @Output() public newFilmEvent = new EventEmitter();
 
-  constructor() {}
+  constructor(private filmService: FilmService) {}
 
   ngOnInit(): void {}
 
   addFilm() {
-    this.newFilmEvent.emit({
+    this.filmService.addFilm({
       name: this.filmForm.controls.name.value,
       synopsis: this.filmForm.controls.synopsis.value,
       note: this.filmForm.controls.note.value,
-    });
+    }).subscribe();
     this.filmForm.reset();
+  }
+
+  editFilm(id: number) {
+    this.filmService.editFilm(id, {
+      name: this.filmForm.controls.name.value,
+      synopsis: this.filmForm.controls.synopsis.value,
+      note: this.filmForm.controls.note.value
+    }).subscribe();
   }
 }

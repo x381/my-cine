@@ -7,9 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'my-cine';
-  films: any[] = [];
-
-  addFilm(newFilm: Object) {
-    this.films.push(newFilm);
-  }
 }
