@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FilmService } from '../@shared/services/film.service';
 
 @Component({
@@ -13,30 +14,51 @@ export class AddOrEditFilmComponent implements OnInit {
     synopsis: new FormControl(''),
     note: new FormControl(null, [Validators.min(0), Validators.max(5)]),
   });
-  @Output() public newFilmEvent = new EventEmitter();
+  button: string;
+  selectedId: number;
 
-  constructor(private filmService: FilmService) {}
+  constructor(
+    private filmService: FilmService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
-
-  addFilm() {
-    this.filmService
-      .addFilm({
-        name: this.filmForm.controls.name.value,
-        synopsis: this.filmForm.controls.synopsis.value,
-        note: this.filmForm.controls.note.value,
-      })
-      .subscribe();
-    this.filmForm.reset();
+  ngOnInit(): void {
+    if (this.route.snapshot.paramMap.get('id') !== null) {
+      const selectedId: number = Number(this.route.snapshot.paramMap.get('id'));
+      this.filmService.getFilm(selectedId).subscribe((res) => {
+        this.filmForm.setValue({
+          name: res.name,
+          synopsis: res.synopsis,
+          note: null,
+        });
+        this.button = 'Modifier';
+        this.selectedId = Number(res.id);
+      });
+    } else {
+      this.button = 'Ajouter';
+    }
   }
 
-  editFilm(id: number) {
-    this.filmService
-      .editFilm(id, {
-        name: this.filmForm.controls.name.value,
-        synopsis: this.filmForm.controls.synopsis.value,
-        note: this.filmForm.controls.note.value,
-      })
-      .subscribe();
+  addOrEditFilm() {
+    if (this.button == 'Modifier') {
+      this.filmService
+        .editFilm(this.selectedId, {
+          name: this.filmForm.controls.name.value,
+          synopsis: this.filmForm.controls.synopsis.value,
+          note: this.filmForm.controls.note.value,
+        })
+        .subscribe();
+      console.log(this.router.navigate(['/film', this.selectedId]));
+    } else {
+      this.filmService
+        .addFilm({
+          name: this.filmForm.controls.name.value,
+          synopsis: this.filmForm.controls.synopsis.value,
+          note: this.filmForm.controls.note.value,
+        })
+        .subscribe();
+      this.router.navigate(['/my-films']);
+    }
   }
 }

@@ -1,4 +1,5 @@
 <div class="container">
+  <h1>Formulaire film</h1>
   <form [formGroup]="filmForm">
     <label for="name">Nom</label>
     <div class="mb-3 col-md-4">
@@ -27,12 +28,17 @@
       class="btn btn-primary"
       type="button"
       [disabled]="!filmForm.valid"
-      (click)="addFilm()"
+      (click)="addOrEditFilm()"
     >
-      Ajouter
+      {{ button }}
     </button>
-    <button class="btn btn-primary" type="button" (click)="editFilm(5)">
-      Editer
+    <button
+      class="btn btn-primary"
+      type="button"
+      routerLink="/my-films"
+      style="margin-left: 10px"
+    >
+      Retour
     </button>
   </form>
 </div>

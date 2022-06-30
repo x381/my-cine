@@ -1,11 +1,13 @@
 <div class="container">
   <h1 class="d-flex justify-content-center">Films</h1>
+  <button class="btn btn-primary mb-2" routerLink="/add-film">Ajouter</button>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th>Nom</th>
         <th>Synopsis</th>
         <th>Note</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +15,9 @@
         <td>{{ film.name }}</td>
         <td>{{ film.synopsis }}</td>
         <td>{{ film.note }}</td>
+        <td>
+          <a class="btn btn-primary" [routerLink]="['/film', film.id]">Voir</a>
+        </td>
       </tr>
     </tbody>
   </table>
